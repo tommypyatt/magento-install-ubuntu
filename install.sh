@@ -21,16 +21,20 @@ sudo systemctl enable elasticsearch.service
 sudo usermod -a -G www-data $USER
 sudo usermod -a -G $USER www-data
 
-# Add composer and magerun
+# Add Magento utilities for CLI usage
+cd
 mkdir bin
 cd bin
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 wget https://files.magerun.net/n98-magerun2.phar
+wget https://raw.githubusercontent.com/tommypyatt/magento-install-ubuntu/main/bin/magento
+wget https://raw.githubusercontent.com/tommypyatt/magento-install-ubuntu/main/bin/magerun
+chmod +x ./magento ./magerun
 
 # Download Magento
-cd ..
+cd
 mkdir repos
 cd repos
 /bin/php7.4 ~/bin/composer.phar create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento
@@ -38,6 +42,7 @@ cd magento
 chmod -R g+w var/ pub/ generated/
 cp nginx.conf.sample ngnix.conf
 sed -i "s/fastcgi_backend/fastcgi_backend74/g" ./nginx.conf
+echo '/bin/php7.4' > .php-version
 
 # Create a DB user and database
 sudo mysql -e "create user 'magento'@'localhost' identified by 'magento'"
