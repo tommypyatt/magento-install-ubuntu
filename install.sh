@@ -40,7 +40,7 @@ cd repos
 /bin/php7.4 ~/bin/composer.phar create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento
 cd magento
 chmod -R g+w var/ pub/ generated/
-cp nginx.conf.sample ngnix.conf
+cp nginx.conf.sample nginx.conf
 sed -i "s/fastcgi_backend/fastcgi_backend74/g" ./nginx.conf
 echo '/bin/php7.4' > .php-version
 
