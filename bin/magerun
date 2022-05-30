@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ -f .php-version ];then
+    php_version=$(<.php-version)
+else
+    php_version='/bin/php'
+fi
+
+${php_version} -v && ${php_version} ~/bin/n98-magerun2.phar --ansi "$@"

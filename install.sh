@@ -25,7 +25,6 @@ sudo usermod -a -G $USER www-data
 mkdir bin
 cd bin
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 wget https://files.magerun.net/n98-magerun2.phar
@@ -37,6 +36,8 @@ cd repos
 /bin/php7.4 ~/bin/composer.phar create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento
 cd magento
 chmod -R g+w var/ pub/ generated/
+cp nginx.conf.sample ngnix.conf
+sed -i "s/fastcgi_backend/fastcgi_backend74/g" ./nginx.conf
 
 # Create a DB user and database
 sudo mysql -e "create user 'magento'@'localhost' identified by 'magento'"
@@ -53,14 +54,14 @@ echo -e "server {\n\
     listen 80;\n\
     server_name magento.test;\n\
     set \$MAGE_ROOT /home/$USER/repos/magento;\n\
-    include /home/$USER/repos/magento/nginx.conf.sample;\n\
+    include /home/$USER/repos/magento/nginx.conf;\n\
 }" | sudo tee /etc/nginx/sites-available/magento.conf
 sudo ln -s /etc/nginx/sites-available/magento.conf /etc/nginx/sites-enabled/magento.conf
 
-# Add upstream fastcgi backend
-echo -e "upstream fastcgi_backend {\n\
+# Add upstream fastcgi backend for PHP 7.4
+echo -e "upstream fastcgi_backend74 {\n\
     server   unix:/var/run/php/php7.4-fpm.sock;\n\
-}" | sudo tee /etc/nginx/conf.d/fastcgi.conf
+}" | sudo tee /etc/nginx/conf.d/fastcgi_php74.conf
 
 # Add a hosts file entry
 echo -e "127.0.1.1       magento.test" | sudo tee -a /etc/hosts
