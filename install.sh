@@ -7,10 +7,9 @@ sudo add-apt-repository -y ppa:ondrej/php
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt update
-sudo apt install -y elasticsearch
 
 # Install applications
-sudo apt install -y nginx curl mariadb-server php7.4-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}
+sudo apt install -y nginx curl mariadb-server elasticsearch php7.4-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}
 
 # Clean up
 sudo apt autoremove -y
