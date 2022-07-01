@@ -31,6 +31,7 @@ After reboot, visit magento.test in your preferred browser for a working fronten
  - Add current user to `www-data` group and vice-versa
  - Add utilities for Magento CLI usage (Composer and Magerun2)
  - Download Magento via Composer
+ - Update permissions for `var`, `pub`, and `generated` directories, to allow access by nginx user for install and other operations.
  - Update fastcgi_backend references in `nginx.conf.sample` to use backend for PHP7.4 created earlier
  - Install Magento
  - Set deploy mode to developer
