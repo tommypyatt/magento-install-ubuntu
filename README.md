@@ -2,6 +2,10 @@
 
 This is developer tool intended for users wanting to quickly get up and running with separate instances of Magento Open Source running concurrently, potentially with varying PHP versions, on a single Linux machine via a LEMP (nginx) stack. It is designed to run on a fresh install of Ubuntu 20.04LTS but should work fine on Ubuntu derivatives. It is not designed for production usage.
 
+### Prequisites
+
+You will need to have access to your Magento authentication keys as this script installs Magento via Composer. These keys are easy to get hold of, are free for Magento Open Source, and instructions for acquiring them can be found on [this page](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html).
+
 ### Quick install: Don't run this unless you know what you're doing and have read and understood the [source code](https://raw.githubusercontent.com/tommypyatt/magento-install-ubuntu/main/install.sh):
 
 ```
