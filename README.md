@@ -54,3 +54,5 @@ After reboot, visit magento.test in your preferred browser for a working fronten
  `magento` and `magerun` scripts are included which can be run in a terminal. These are bash scripts that check for the appropriate PHP version in a `.php-version` file in the project root, from where the scripts are designed to be run.
  
  Further work is almost definitely required. For example I haven't yet added Elasticsearch phonetic and icu plugins, or enable `display_errors` in php-fpm config, so some manual effor will still be required depending on your project and usage requirements.
+
+ Redis and Varnish are neither installed nor configured. As a developer, or a user just wanting to explore Magento, these features are not required and generally get in the way. The trade-off is that this developer instance will probably differ from most production instances.
