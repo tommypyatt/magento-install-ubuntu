@@ -25,7 +25,7 @@ Reboot machine after completion.
  - Add current user to `www-data` group and vice-versa
  - Add utilities for Magento CLI usage (Composer and Magerun2)
  - Download Magento via Composer
- - Update fast_cgi_backend references in `nginx.conf.sample` to use backend for PHP7.4 created earlier
+ - Update fastcgi_backend references in `nginx.conf.sample` to use backend for PHP7.4 created earlier
  - Install Magento
  - Set deploy mode to developer
  - Disable two factor auth for local admin panel access
