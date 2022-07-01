@@ -39,13 +39,13 @@ After reboot, visit magento.test in your preferred browser for a working fronten
  
  ## Interactivity
  
- The script runs mostly uninteractive but you will be prompted, probably once, for your user password for sudo access and another time for your [Magento authentication keys](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html).
+ The script runs mostly uninteractive but you will be prompted, probably once, for your user password for sudo access and another time for your [Magento authentication keys](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html). You will also be prompted to confirm adding PPAs to your system.
  
  ## Further notes
  
  PHP7.4 is installed initially. Other versions of PHP can be installed from the PPA that is added to the system. To install PHP7.3, for example, along with the plugins upon which Magento depends, go for it:
  
- `sudo apt install php7.4-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}`
+ `sudo apt install php7.3-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}`
  
  You'll just need to now add a respective fastcgi backend configuration and modify your project's `nginx.conf.sample` to suit. I would like to automate this but I need to first think of a good way to do that.
  
