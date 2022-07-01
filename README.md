@@ -10,6 +10,8 @@ wget https://raw.githubusercontent.com/tommypyatt/magento-install-ubuntu/main/in
 
 Reboot machine after completion.
 
+After reboot, visit magento.test in your preferred browser for a working frontend, and magento.test/admin for a backend. Username: `admin`, password `admin123`.
+
 ## Further detail of script actions
 
  - Install updates to Ubuntu
