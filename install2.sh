@@ -71,6 +71,8 @@ cp nginx.conf.sample nginx.conf
 sed -i "s/fastcgi_backend/fastcgi_backend81/g" ./nginx.conf
 echo '/bin/php8.1' > .php-version
 
+/bin/php8.1 ~/bin/composer.phar require reessolutions/db-override:*
+
 # Install Magento
 /bin/php8.1 bin/magento setup:install --base-url=http://magento.test --db-host=localhost --db-name=magento --db-user=magento --db-password=magento --admin-firstname=admin --admin-lastname=admin --admin-email=admin@admin.com --admin-user=admin --admin-password=admin123 --language=en_GB --currency=GBP --timezone=Europe/London --use-rewrites=1 --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200 --elasticsearch-index-prefix=magento2 --elasticsearch-timeout=15 --backend-frontname=admin
 /bin/php8.1 bin/magento deploy:mode:set developer
