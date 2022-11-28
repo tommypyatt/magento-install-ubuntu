@@ -49,8 +49,6 @@ After reboot, visit magento.test in your preferred browser for a working fronten
  
  You'll just need to now add a respective fastcgi backend configuration and modify your project's `nginx.conf.sample` to suit. I would like to automate this but I need to first think of a good way to do that.
  
- At the time of writing, PHP7.4 is what I needed. I may (almost certainly will) update this to PHP8.1 in the future.
- 
  `magento` and `magerun` scripts are included which can be run in a terminal. These are bash scripts that check for the appropriate PHP version in a `.php-version` file in the project root, from where the scripts are designed to be run.
  
  Further work is definitely required. For example I haven't yet added Elasticsearch phonetic and icu plugins, or enable `display_errors` in php-fpm config, so some manual effort will still currently be required depending on your project and usage requirements.

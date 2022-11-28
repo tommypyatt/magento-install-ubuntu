@@ -7,9 +7,10 @@ sudo add-apt-repository -y ppa:ondrej/php
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt update
+sudo apt install -y elasticsearch
 
 # Install applications
-sudo apt install -y nginx curl mariadb-server elasticsearch php7.4-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}
+sudo apt install -y nginx curl mariadb-server php8.1-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}
 
 # Clean up
 sudo apt autoremove -y
@@ -23,10 +24,10 @@ echo -e "server {\n\
 }" | sudo tee /etc/nginx/sites-available/magento.conf
 sudo ln -s /etc/nginx/sites-available/magento.conf /etc/nginx/sites-enabled/magento.conf
 
-# Add upstream fastcgi backend for PHP 7.4
-echo -e "upstream fastcgi_backend74 {\n\
-    server   unix:/var/run/php/php7.4-fpm.sock;\n\
-}" | sudo tee /etc/nginx/conf.d/fastcgi_php74.conf
+# Add upstream fastcgi backend for PHP 8.1
+echo -e "upstream fastcgi_backend81 {\n\
+    server   unix:/var/run/php/php8.1-fpm.sock;\n\
+}" | sudo tee /etc/nginx/conf.d/fastcgi_php81.conf
 
 # Add a hosts file entry
 echo -e "127.0.1.1       magento.test" | sudo tee -a /etc/hosts
@@ -63,14 +64,17 @@ chmod +x ./magento ./magerun
 cd
 mkdir repos
 cd repos
-/bin/php7.4 ~/bin/composer.phar create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento
+/bin/php8.1 ~/bin/composer.phar create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento
 cd magento
 chmod -R g+w var/ pub/ generated/
 cp nginx.conf.sample nginx.conf
-sed -i "s/fastcgi_backend/fastcgi_backend74/g" ./nginx.conf
-echo '/bin/php7.4' > .php-version
+sed -i "s/fastcgi_backend/fastcgi_backend81/g" ./nginx.conf
+echo '/bin/php8.1' > .php-version
+
+# Add fix for incompatibility with latest MariaDB
+/bin/php8.1 ~/bin/composer.phar require reessolutions/db-override:*
 
 # Install Magento
-/bin/php7.4 bin/magento setup:install --base-url=http://magento.test --db-host=localhost --db-name=magento --db-user=magento --db-password=magento --admin-firstname=admin --admin-lastname=admin --admin-email=admin@admin.com --admin-user=admin --admin-password=admin123 --language=en_GB --currency=GBP --timezone=Europe/London --use-rewrites=1 --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200 --elasticsearch-index-prefix=magento2 --elasticsearch-timeout=15 --backend-frontname=admin
-/bin/php7.4 bin/magento deploy:mode:set developer
-/bin/php7.4 bin/magento module:disable Magento_TwoFactorAuth
+/bin/php8.1 bin/magento setup:install --base-url=http://magento.test --db-host=localhost --db-name=magento --db-user=magento --db-password=magento --admin-firstname=admin --admin-lastname=admin --admin-email=admin@admin.com --admin-user=admin --admin-password=admin123 --language=en_GB --currency=GBP --timezone=Europe/London --use-rewrites=1 --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200 --elasticsearch-index-prefix=magento2 --elasticsearch-timeout=15 --backend-frontname=admin
+/bin/php8.1 bin/magento deploy:mode:set developer
+/bin/php8.1 bin/magento module:disable Magento_TwoFactorAuth
