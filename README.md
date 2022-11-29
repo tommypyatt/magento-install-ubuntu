@@ -23,7 +23,7 @@ After reboot, visit magento.test in your preferred browser for a working fronten
  - Update local packages list and install Magento dependencies (nginx, curl, mariadb-server, elasticsearch, PHP, PHP extensions - bcmath, common, curl, fpm, gd, intl, mbstring, soap, xml, xsl, zip, cli, xml, dev, xdebug)
  - Add an nginx config for test site (magento.test)
  - Enable the nginx config by symlinking it into `sites-available`
- - Add upstream FastCGI backend to `conf.d` for PHP7.4
+ - Add upstream FastCGI backend to `conf.d` for PHP8.1
  - Add a hosts file entry to access magento.test in a local browser
  - Increase memory heap size allocated to Elasticsearch to 256MB
  - Start elasticsearch and enable start on boot via `systemctl`
@@ -43,9 +43,9 @@ After reboot, visit magento.test in your preferred browser for a working fronten
  
  ## Further notes
  
- PHP7.4 is installed initially. Other versions of PHP can be installed from the PPA that is added to the system. To install PHP7.3, for example, along with the plugins upon which Magento depends, go for it:
+ PHP 8.1 is installed initially. Other versions of PHP can be installed from the PPA that is added to the system. To install PHP7.4, for example, along with the plugins upon which Magento depends, go for it:
  
- `sudo apt install php7.3-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}`
+ `sudo apt install php7.4-{bcmath,common,curl,fpm,gd,intl,mbstring,mysql,soap,xml,xsl,zip,cli,xml,dev,xdebug}`
  
  You'll just need to now add a respective fastcgi backend configuration and modify your project's `nginx.conf.sample` to suit. I would like to automate this but I need to first think of a good way to do that.
  
